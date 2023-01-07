@@ -3,6 +3,7 @@
 require '../admin/function/functionBku.php';
 
     $dataBku = query("SELECT * FROM tbl_buku");
+    $dataBrta = query("SELECT * FROM tbl_berita");
 
 
 ?>
@@ -41,21 +42,25 @@ require '../admin/function/functionBku.php';
  <!-- Navbar -->
  <nav id="header" class="navbar navbar-expand-lg bg-light fixed-top text-dark bg-body-tertiary  shadow-sm" style="background-color:rgba(0, 0, 0, 0.5);">
   <div class="container-fluid" style="">
-    <a id="textHeader" class="text-dark navbar-brand " href="#">Perpustakaan STT Sejahtera</a>
+    <div class="pe-5" style="border-right: 2px solid gray;">
+        <a id="textHeader" class="text-dark navbar-brand " href="#">Perpustakaan STT Sejahtera</a>
+    </div>
     <button class="navbar-toggler text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon">
         <i class="fa-solid fa-bars"></i>
       </span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar w-100" style="margin-left: 190px !important;">
+      <div class="navbar w-100 mx-auto">
         <a id="textHeader" class="text-dark nav-link " aria-current="page" href="#Hero">Home</a>
         <a id="textHeader" class="text-dark nav-link" href="#Buku">Data Buku</a>
-        <a id="textHeader" class="text-dark nav-link " href="#">Kontak</a>
-        <a id="textHeader" class="text-dark nav-link ">Berita</a>
+        <a id="textHeader" class="text-dark nav-link " href="#kontak">Kontak</a>
+        <a id="textHeader" class="text-dark nav-link " href="#berita">Berita</a>
       </div>
       <div class="d-flex justify-content-end w-100">
-        <button class="btn btn-outline-success ms-2" type="submit">Login</button>
+        <button class="btn btn-outline-success ms-2" type="submit">
+            <a href="login.php">Login</a>
+        </button>
       </div>
     </div>
   </div>
@@ -72,9 +77,9 @@ require '../admin/function/functionBku.php';
 </div>
 
 <!-- Data Buku -->
-    <div id="Buku" class="container-fluid mx-auto text-center m-5" style="height: 50vh;">
+    <div id="Buku" class="container-fluid mx-auto text-center m-5">
         <div class="pb-5">
-            <h1 class="mb-5">Data Buku</h1>
+            <h1 class="mb-1">Data Buku</h1>
             <div class="container-fluid pb-5">
                 <div class="d-flex flex-wrap">
                     <?php foreach ($dataBku as $row) : ?>
@@ -97,6 +102,71 @@ require '../admin/function/functionBku.php';
             </div>
         </div>
     </div>
+
+  <!-- Berita -->
+  <div class="container-fluid" style="background-color:rgba(176,224,230, 0.5);">
+    <div>
+        <h1 class="p-2">Berita</h1>
+    </div>
+    <div class="d-flex flex-wrap">
+        <div class="card w-50">
+            <div class="card-header">
+                
+            </div>
+            <div class="card-body">
+                <img src="" alt="">
+                <p>
+
+                </p>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+<!-- Kontak -->
+<div id="kontak">
+    <div class="text-center">
+        <div class="card shadow mb-4 m-3">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Kontak Kami</h6>
+            </div>
+            <div class="card-body w-100">
+                <div class="d-flex flex-wrap ">
+                    <div class="card shadow-md m-1" style="width: 49%;">
+                        <div class="card-body">
+                            <form action="" method="post">
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control mb-2" id="nama" placeholder="Nama Lengkap">
+                                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                                    </div>
+                                    <div class="mb-3">
+                                        <textarea class="form-control" id="pesan" name="pesan" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" name="kirim" class="btn btn-primary w-100">Kirim</button>
+                                </form>
+                            </div>
+                        </div>
+                    <div class=" m-1" style="width: 49%;">
+                        <div class="card-body">
+                            <img src="../assets/img/bukuKontak.png" width="300" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="bg-primary">
+    <div class="p-3 text-light text-center">
+        <div>NAMA</div>
+        <div>NAMA</div>
+        <div>NAMA</div>
+    </div>
+</footer>
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>

@@ -1,5 +1,5 @@
 <?php 
-require 'function.php';
+require './function/functionBku.php';
 
 $id = $_GET["id"];
 
