@@ -1,0 +1,4 @@
+#cardBku:hover {
+    transform: scale(1.05);
+    box-shadow: 4px 8px #c5c3c3 !important;
+}
