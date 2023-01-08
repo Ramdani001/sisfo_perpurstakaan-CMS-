@@ -16,18 +16,19 @@ function tambah($data) {
     global $conn;
 
 
-    $judul = htmlspecialchars($data["judul"]);
+    $npm = htmlspecialchars($data["npm"]);
     $nama = htmlspecialchars($data["nama"]);
-    $nrp = htmlspecialchars($data["nrp"]);
-    $tgl_pinjam = htmlspecialchars($data["tgl_pinjam"]);
-    $tgl_kembali = htmlspecialchars($data["tgl_kembali"]);
-    $status = htmlspecialchars($data["status"]);
-    $keterangan = htmlspecialchars($data["keterangan"]);
+    $email = htmlspecialchars($data["email"]);
+    $password = htmlspecialchars($data["password"]);
+    $tempat_lahir = htmlspecialchars($data["tempat_lahir"]);
+    $tgl_lahir = htmlspecialchars($data["tgl_lahir"]);
+    $jk = htmlspecialchars($data["jk"]);
+    $prodi = htmlspecialchars($data["prodi"]);
     
 
-    $query = "INSERT INTO tbl_peminjaman
+    $query = "INSERT INTO tbl_users
                     VALUES
-            ('', '$judul', '$nama', '$nrp', '$tgl_pinjam', '$tgl_kembali', '$status', '$keterangan')
+            ('', '$npm', '$nama', '$email', '$password', '$tempat_lahir', '$tgl_lahir', '$jk', '$prodi')
     ";
     mysqli_query($conn, $query);
 
@@ -38,36 +39,43 @@ function tambah($data) {
 
 function hapus($id) {
     global $conn;
-    mysqli_query($conn, "DELETE FROM tbl_peminjaman WHERE id = $id");
+    mysqli_query($conn, "DELETE FROM tbl_users WHERE id = $id");
     return mysqli_affected_rows($conn);
 }
 
-function ubah($data) {
-    global $conn;
 
-    $id = $data["id"];
-    $judul = htmlspecialchars($data["judul"]);
-    $nama = htmlspecialchars($data["nama"]);
-    $nrp = htmlspecialchars($data["nrp"]);
-    $tgl_pinjam = htmlspecialchars($data["tgl_pinjam"]);
-    $tgl_kembali = htmlspecialchars($data["tgl_kembali"]);
-    $status = htmlspecialchars($data["status"]);
-    $keterangan = htmlspecialchars($data["keterangan"]);
+function register($data) {
+	global $conn;
 
-    $query = "UPDATE tbl_peminjaman SET
-                judul = '$judul',
-                nama = '$nama',
-                nrp = '$nrp',
-                tgl_pinjam = '$tgl_pinjam',
-                tgl_kembali = '$tgl_kembali',
-                status_buku = '$status',
-                keterangan = '$keterangan'
-              WHERE id = $id
-            ";
-            mysqli_query($conn, $query);
+	$npm = strtolower(stripslashes($data["npm"]));
+	$nama = strtolower(stripslashes($data["nama"]));
+	$email = strtolower(stripslashes($data["email"]));
+	$password = mysqli_real_escape_string($conn, $data["password"]);
+    $tempat_lahir = strtolower(stripslashes($data["tempat_lahir"]));
+    $tgl_lahir = strtolower(stripslashes($data["tgl_lahir"]));
+    $jk = strtolower(stripslashes($data["jk"]));
+    $prodi = strtolower(stripslashes($data["prodi"]));
 
-            return mysqli_affected_rows($conn);
+	// cek npm sudah ada atau belum
+	$result = mysqli_query($conn, "SELECT npm FROM tbl_users WHERE npm = '$npm'");
+
+	if( mysqli_fetch_assoc($result) ) {
+		echo "<script>
+				alert('NPM sudah terdaftar!')
+		      </script>";
+		return false;
+	}
+
+	// enkripsi password
+	$password = password_hash($password, PASSWORD_DEFAULT);
+
+	// tambahkan userbaru ke database
+	mysqli_query($conn, "INSERT INTO tbl_users 
+                            VALUES
+                ('', '$npm', '$nama', '$email','$password', '$tempat_lahir', '$tgl_lahir', '$jk', '$prodi')");
+
+	return mysqli_affected_rows($conn);
+
 }
-
 
 ?>

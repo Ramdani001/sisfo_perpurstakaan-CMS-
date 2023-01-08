@@ -58,9 +58,19 @@ require '../admin/function/functionBku.php';
         <a id="textHeader" class="text-dark nav-link " href="#berita">Berita</a>
       </div>
       <div class="d-flex justify-content-end w-100">
-        <button class="btn btn-outline-success ms-2" type="submit">
-            <a href="login.php">Login</a>
-        </button>
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa-solid fa-user"></i>
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="userDropdown">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="logout.php">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Logout
+                </a>
+            </div>
       </div>
     </div>
   </div>
@@ -145,7 +155,7 @@ require '../admin/function/functionBku.php';
                 <div class="d-flex flex-wrap ">
                     <div class="card shadow-md m-1" style="width: 49%;">
                         <div class="card-body">
-                            <form>
+                            <form action="../admin/tambahPesan.php" method="post">
                                     <div class="mb-3">
                                         <input type="text" class="form-control mb-2" id="nama" placeholder="Nama Lengkap" name="nama">
                                         <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
@@ -153,9 +163,7 @@ require '../admin/function/functionBku.php';
                                     <div class="mb-3">
                                         <textarea class="form-control" id="pesan" name="pesan" rows="3" name="pesan"></textarea>
                                     </div>
-                                    <button type="submit" name="kirim" class="btn btn-primary w-100">
-                                        <a href="login.php" class="text-light">Kirim</a>
-                                    </button>
+                                    <button type="submit" name="kirim" class="btn btn-primary w-100">Kirim</button>
                                 </form>
                             </div>
                         </div>

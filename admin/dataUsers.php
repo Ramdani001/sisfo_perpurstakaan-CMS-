@@ -3,6 +3,25 @@ require './function/functionUsers.php';
 
 $dataUsers = query("SELECT * FROM tbl_users");
 
+if( isset($_POST["submit"]) ) {
+    
+    if( tambah($_POST) > 0 ){
+        echo"
+            <script>
+                alert('Data Berita Tersimpan');
+                document.location.href = 'dataUsers.php';
+            </script>
+        ";
+    } else {
+        echo"
+            <script>
+                alert('Data Berita Tidak Tersimpan!!!');
+                document.location.href = 'dataUsers.php';
+            </script>
+        ";
+    }
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,12 +38,13 @@ $dataUsers = query("SELECT * FROM tbl_users");
     <!-- Logo -->
     <link rel="icon" href="../assets/img/logo.png">
 
+    
+    <!-- MyStyle -->
+    <link rel="stylesheet" href="../assets/style/css/style.css">
+
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- MyStyle -->
-    <link rel="stylesheet" href="../assets/style/css/style.css">
 
 
     <!-- Custom styles for this template-->
@@ -101,6 +121,13 @@ $dataUsers = query("SELECT * FROM tbl_users");
                 </a>
             </li>
         
+            <li class="sidebarMenu nav-item">
+                <a class="nav-link" href="../landingPage/index.php">
+                <img src="../assets/img/iconWeb1.png" width="30" alt="">
+                    <span>Landing Page</span>
+                </a>
+            </li>
+
         </ul>
         <!-- End of Sidebar -->
 
@@ -149,34 +176,80 @@ $dataUsers = query("SELECT * FROM tbl_users");
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nama Admin</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
+                       
 
                     </ul>
 
                 </nav>
                 <!-- End of Topbar -->
+
+
+                    <!-- Modal Tambah -->
+                    <div class="modal fade" id="Tambah" tabindex="-1" aria-labelledby="TambahLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="TambahLabel">Tambah Data Buku</h1>
+                        </div>
+                        <div class="modal-body">
+                                <form action="" method="post" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <label for="nama" class="form-label">nama</label>
+                                        <input type="text" class="form-control" id="nama" name="nama"
+                                        >
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="npm" class="form-label">NPM</label>
+                                        <input type="text" class="form-control" id="npm" name="npm"
+                                        >
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="text" class="form-control" id="email" name="email"
+                                        >
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="text" class="form-control" id="password" name="password"
+                                        >
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="tempat_lahir" class="form-label">Tempat Tanggal Lahir</label>
+                                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
+                                        >
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
+                                        <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir"
+                                        >
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="jk" class="form-label">Jenis Kelamin</label>
+                                        <input type="text" class="form-control" id="jk" name="jk"
+                                        >
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="prodi" class="form-label">Prodi</label>
+                                        <input type="text" class="form-control" id="prodi" name="prodi"
+                                        >
+                                    </div>
+                                    
+                                  
+                                    
+                                    
+                                    
+                                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+
  <!-- Begin Page Content -->
  <div class="container-fluid">
 
@@ -185,13 +258,16 @@ $dataUsers = query("SELECT * FROM tbl_users");
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTa Users</h6>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Tambah" >
+                Tambah
+            </button>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>npm</th>
                             <th>nama</th>
                             <th>email</th>
@@ -200,6 +276,7 @@ $dataUsers = query("SELECT * FROM tbl_users");
                             <th>Tanggal Lahir</th>
                             <th>Jenis Kelamin</th>
                             <th>Prodi</th>
+                            <th></th>
                         </tr>
                     </thead>
                     
@@ -233,6 +310,11 @@ $dataUsers = query("SELECT * FROM tbl_users");
                             </td>
                             <td>
                                 <?= $row["prodi"] ?>
+                            </td>
+                            <td>
+                                <a href="deleteUsers.php?id=<?= $row["id"]; ?>" class="btn btn-primary">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
                             </td>
                         </tr>
                         <?php $No++; ?>
@@ -284,6 +366,7 @@ $dataUsers = query("SELECT * FROM tbl_users");
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>

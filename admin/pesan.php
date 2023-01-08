@@ -1,3 +1,20 @@
+<?php
+
+$conn = mysqli_connect("localhost:3307", "root", "", "db_perpus");
+
+function query($query) {
+    global $conn;
+    $result = mysqli_query($conn, $query);
+    $rows = [];
+    while ( $row = mysqli_fetch_assoc($result) ){
+        $rows[] = $row;
+    }
+    return $rows;
+}
+
+$dataPesan = query("SELECT * FROM tbl_pesan");
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -95,6 +112,13 @@
                     <span>Berita</span>
                 </a>
             </li>
+
+            <li class="sidebarMenu nav-item">
+                <a class="nav-link" href="../landingPage/index.php">
+                <img src="../assets/img/iconWeb1.png" width="30" alt="">
+                    <span>Landing Page</span>
+                </a>
+            </li>
         
         </ul>
         <!-- End of Sidebar -->
@@ -146,30 +170,7 @@
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nama Admin</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
+                       
                     </ul>
 
                 </nav>
@@ -190,32 +191,39 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>Pesan</th>
+                            <th></th>
+                            
                         </tr>
                     </thead>
                     
                     <tbody>
+                        <?php $no=1; ?>
+                        <?php foreach($dataPesan as $row) : ?>
                         <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
+                            <td>
+                                <?= $no; ?>
+                            </td>
+                            <td>
+                                <?= $row["nama"] ?>
+                            </td>
+                            <td>
+                                <?= $row["email"] ?>
+                            </td>
+                            <td>
+                                <?= $row["pesan"] ?>
+                            </td>
+                            <td>
+                                <a href="deletePesan.php?id=<?= $row["id"]; ?>" class="btn btn-primary">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                            <td>2011/07/25</td>
-                            <td>$170,750</td>
-                        </tr>
+                        <?php $no++;?>
+                        <?php endforeach;?>
                        
                     </tbody>
                 </table>
